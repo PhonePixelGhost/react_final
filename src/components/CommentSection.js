@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase"; // เชื่อมต่อกับ firebase
-import { collection, getDocs, query, where, addDoc, serverTimestamp } from "firebase/firestore"; // เพิ่ม addDoc และ serverTimestamp ที่นี่
-import { useParams } from "react-router-dom"; // ใช้ useParams สำหรับดึง postId จาก URL
+import { db } from "../firebase";
+import { collection, getDocs, query, where, addDoc, serverTimestamp } from "firebase/firestore";
+import { useParams } from "react-router-dom";
+import "./CommentSection.css"; // เพิ่มการ import CSS
 
 const CommentSection = () => {
-  const { postId } = useParams(); // ดึง postId จาก URL
+  const { postId } = useParams();
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
@@ -31,7 +32,7 @@ const CommentSection = () => {
       await addDoc(collection(db, "comments"), {
         postId,
         comment,
-        timestamp: serverTimestamp(), // ใช้ serverTimestamp แทน new Date() สำหรับเวลา
+        timestamp: serverTimestamp(),
       });
       setComment(""); // เคลียร์ฟอร์มหลังจากโพสต์คอมเมนต์
     } catch (error) {
@@ -40,23 +41,30 @@ const CommentSection = () => {
   };
 
   return (
-    <div>
+    <div className="comment-section">
       <h3>Comments</h3>
-      <form onSubmit={handleAddComment}>
+      <form onSubmit={handleAddComment} className="comment-form">
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment"
+          className="comment-input"
         />
-        <button type="submit">Post Comment</button>
+        <button type="submit" className="comment-btn">Post Comment</button>
       </form>
-      <div>
-        {comments.map((comment, index) => (
-          <div key={index}>
-            <p>{comment.comment}</p>
-          </div>
-        ))}
-      </div>
+
+      {/* แสดงข้อความถ้ายังไม่มีคอมเมนต์ */}
+      {comments.length === 0 ? (
+        <p className="no-comments">No comments yet. Be the first to comment!</p>
+      ) : (
+        <div className="comments-list">
+          {comments.map((comment, index) => (
+            <div key={index} className="comment-item">
+              <p>{comment.comment}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
