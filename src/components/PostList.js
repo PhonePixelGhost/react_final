@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore"; // ใช้ Firestore API แบบใหม่
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore"; // ใช้ Firestore API
 import { Link } from "react-router-dom"; // ใช้ Link สำหรับการนำทางไปยังหน้า PostForm
 import "./PostList.css"; // เพิ่มการ import CSS
 
@@ -12,8 +12,8 @@ const PostList = () => {
   // ดึงข้อมูลโพสต์จาก Firestore
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsCollection = collection(db, "posts"); // ใช้ collection() ให้ถูกต้อง
-      const snapshot = await getDocs(postsCollection);  // ใช้ getDocs() เพื่อดึงข้อมูล
+      const postsCollection = collection(db, "posts");
+      const snapshot = await getDocs(postsCollection);
       const postList = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setPosts(postList);
     };
@@ -70,7 +70,7 @@ const PostList = () => {
             {/* ปุ่มไลค์ */}
             <button
               onClick={() => handleLike(post.id, post.likes || 0)} // ส่ง postId และจำนวนไลค์ปัจจุบัน
-              className="like-btn"
+              className={`like-btn ${likedPosts[post.id] ? "liked" : ""}`} // เพิ่ม class liked หากไลค์แล้ว
               disabled={likedPosts[post.id]} // ถ้าไลค์แล้วให้ปิดปุ่ม
             >
               {likedPosts[post.id] ? "Liked" : "Like"} ({likes[post.id] || post.likes || 0})
