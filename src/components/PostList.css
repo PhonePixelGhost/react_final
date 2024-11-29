@@ -50,11 +50,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* ปรับปรุงปุ่มไลค์ */
 .like-btn {
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: #28a745;
   border: none;
   border-radius: 50px;
@@ -102,6 +104,7 @@
   transform: scale(0.98); /* ลดขนาดเมื่อคลิก */
 }
 
+/* ปุ่มสร้างโพสต์ */
 .create-post-container {
   text-align: center;
   margin-bottom: 20px;
@@ -127,4 +130,104 @@
 
 .create-post-btn:active {
   transform: translateY(1px);
+}
+
+/* เพิ่ม margin ระหว่างโพสต์ */
+.post-item + .post-item {
+  margin-top: 20px;
+}
+
+/* สำหรับปุ่มลบโพสต์ */
+.delete-btn {
+  padding: 8px 16px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.delete-btn:active {
+  transform: scale(0.98);
+}
+
+/* สำหรับปุ่มแก้ไขโพสต์ */
+.edit-btn {
+  padding: 8px 16px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+  background-color: #e67e22;
+  transform: scale(1.05);
+}
+
+.edit-btn:active {
+  transform: scale(0.98);
+}
+
+/* ฟอร์มการแก้ไขโพสต์ */
+.edit-form-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.edit-form-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.edit-form-container input,
+.edit-form-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.edit-form-container textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.edit-form-container button {
+  background-color: #28a745;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+.edit-form-container button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.edit-form-container button:active {
+  transform: scale(0.98);
 }

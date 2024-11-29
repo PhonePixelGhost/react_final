@@ -11,7 +11,8 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  testDir: './e2e',
+  testDir: './tests', // กำหนดโฟลเดอร์ที่ Playwright ค้นหาทดสอบ
+  testMatch: '**/post.test.js', // กำหนดให้ Playwright ค้นหาไฟล์ post.test.js
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
