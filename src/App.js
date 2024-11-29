@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { auth } from "./firebase"; 
+import { auth } from "./firebase";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import CommentSection from "./components/CommentSection"; // เพิ่มการ import CommentSection
 
 function App() {
   const [user, setUser] = useState(null);
@@ -45,6 +46,7 @@ function App() {
             <Routes>
               <Route path="/posts" element={<PostList />} /> {/* แสดงโพสต์ทั้งหมด */}
               <Route path="/create" element={<PostForm />} /> {/* หน้าเพิ่มโพสต์ */}
+              <Route path="/post/:postId" element={<CommentSection />} /> {/* เส้นทางไปยัง CommentSection */}
             </Routes>
           </div>
         ) : (

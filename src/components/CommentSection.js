@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
-import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore"; // ใช้ Firestore API แบบใหม่
+import { db } from "../firebase"; // เชื่อมต่อกับ firebase
+import { collection, getDocs, query, where, addDoc, serverTimestamp } from "firebase/firestore"; // เพิ่ม addDoc และ serverTimestamp ที่นี่
 import { useParams } from "react-router-dom"; // ใช้ useParams สำหรับดึง postId จาก URL
 
 const CommentSection = () => {
@@ -8,74 +8,54 @@ const CommentSection = () => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
-  // ฟังก์ชันดึงคอมเมนต์จาก subcollection
-  const fetchComments = async () => {
-    const commentsRef = collection(db, "posts", postId, "comments"); // ใช้ subcollection
-    const querySnapshot = await getDocs(commentsRef);
-    const commentsArray = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    setComments(commentsArray);
-  };
-
-  // ดึงคอมเมนต์เมื่อ postId เปลี่ยนหรือ component โหลด
   useEffect(() => {
-    if (!postId) {
-      console.error("Post ID is undefined");
-      return;
-    }
-    fetchComments(); // ดึงข้อมูลคอมเมนต์จาก Firestore
+    const fetchComments = async () => {
+      const q = query(collection(db, "comments"), where("postId", "==", postId));
+      const querySnapshot = await getDocs(q);
+      const commentsData = querySnapshot.docs.map((doc) => doc.data());
+      setComments(commentsData);
+    };
+
+    fetchComments();
   }, [postId]);
 
-  // ฟังก์ชันสำหรับเพิ่มคอมเมนต์ใหม่
   const handleAddComment = async (e) => {
     e.preventDefault();
+
     if (comment.trim() === "") {
       console.error("Comment cannot be empty");
       return;
     }
 
     try {
-      // เพิ่มคอมเมนต์ใหม่ใน subcollection ของโพสต์
-      const commentsRef = collection(db, "posts", postId, "comments");
-      await addDoc(commentsRef, {
-        text: comment,
-        username: "Anonymous",  // หรือใช้ username จาก props
-        createdAt: serverTimestamp(), // ใช้ serverTimestamp สำหรับเวลา
+      await addDoc(collection(db, "comments"), {
+        postId,
+        comment,
+        timestamp: serverTimestamp(), // ใช้ serverTimestamp แทน new Date() สำหรับเวลา
       });
-
       setComment(""); // เคลียร์ฟอร์มหลังจากโพสต์คอมเมนต์
-      fetchComments(); // ดึงคอมเมนต์ใหม่จาก Firestore
     } catch (error) {
       console.error("Error adding comment: ", error);
     }
   };
 
   return (
-    <div className="mt-3">
+    <div>
       <h3>Comments</h3>
-      <form onSubmit={handleAddComment} className="d-flex mb-2">
-        <input
-          type="text"
+      <form onSubmit={handleAddComment}>
+        <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Write a comment..."
-          className="form-control me-2"
-          required
+          placeholder="Add a comment"
         />
-        <button type="submit" className="btn btn-primary">
-          Post Comment
-        </button>
+        <button type="submit">Post Comment</button>
       </form>
-
       <div>
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <p key={comment.id} className="mb-1">
-              <strong>{comment.username}:</strong> {comment.text}
-            </p>
-          ))
-        ) : (
-          <p>No comments yet.</p>
-        )}
+        {comments.map((comment, index) => (
+          <div key={index}>
+            <p>{comment.comment}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
