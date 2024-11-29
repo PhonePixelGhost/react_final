@@ -1,78 +1,85 @@
-/* SignUp.css */
-
-/* Container ที่ครอบฟอร์ม */
+/* CSS สำหรับ Sign Up */
 .signup-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f7fc;
-  }
-  
-  /* Card ที่ใช้สำหรับการสมัครสมาชิก */
-  .signup-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  /* หัวข้อฟอร์ม */
-  .signup-heading {
-    text-align: center;
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* ฟอร์มอินพุต */
-  .signup-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
-  /* ปุ่มสมัครสมาชิก */
-  .signup-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .signup-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* ข้อความข้อผิดพลาด */
-  .error-message {
-    color: red;
-    font-size: 14px;
-    text-align: center;
-  }
-  
-  /* ลิงก์สำหรับไปที่หน้า SignIn */
-  .login-link {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .login-link a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .login-link a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.signup-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signup-heading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signup-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.signup-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: #218838;
+}
+
+/* สำหรับ error message */
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ปุ่ม Sign In */
+.sign-up-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.sign-in-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.sign-in-btn:hover {
+  background-color: #0056b3;
+}
+
+.sign-up-link p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}

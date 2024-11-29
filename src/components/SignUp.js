@@ -58,9 +58,17 @@ const SignUp = () => {
           </button>
         </form>
         {errorMessage && <p className="error-message">{errorMessage}</p>} {/* แสดงข้อความข้อผิดพลาด */}
-        <p className="login-link">
-          Already have an account? <a href="/signin">Sign In</a>
-        </p>
+        
+        {/* ปรับโค้ดตรงนี้ */}
+        <div className="sign-up-link">
+          <p>Already have an account?</p>
+          <button
+            onClick={() => navigate("/signin")}
+            className="sign-in-btn"
+          >
+            Sign In
+          </button>
+        </div>
       </div>
     </div>
   );
